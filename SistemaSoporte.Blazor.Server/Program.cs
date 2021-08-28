@@ -49,6 +49,7 @@ namespace SistemaSoporte.Blazor.Server {
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseUrls("https://soporte.livedev.com");
                 });
         XafApplication IDesignTimeApplicationFactory.Create() {
             IHostBuilder hostBuilder = CreateHostBuilder(Array.Empty<string>());

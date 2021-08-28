@@ -18,6 +18,7 @@ namespace SistemaSoporte.Module.BusinessObjects
     [NavigationItem("Soporte")]
     [ImageName("BO_Contact")]
     [DefaultProperty("RazonSocial")]
+    [XafDisplayName("Solicitante")]
     //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
     //[Persistent("DatabaseTableName")]
 
@@ -38,11 +39,13 @@ namespace SistemaSoporte.Module.BusinessObjects
 
         // esta información de clientes debe tener: Num, Identifacion, Razon Social, Email, Direccion, Telefono
 
+        bool activo;
+        Area area;
         string observaciones;
         string telefono;
         string direccion;
         string email;
-        string identifcacion;
+        string identificacion;
         string numCliente;
         string razonSocial;
 
@@ -57,7 +60,7 @@ namespace SistemaSoporte.Module.BusinessObjects
 
         [Size(250)]
         [RuleRequiredField]
-        [XafDisplayName("Razón Social")]
+        [XafDisplayName("Nombres y Apellidos")]
         public string RazonSocial
         {
             get => razonSocial;
@@ -67,10 +70,10 @@ namespace SistemaSoporte.Module.BusinessObjects
 
         [Size(50)]
         [RuleRequiredField]
-        public string Identifcacion
+        public string Identificacion
         {
-            get => identifcacion;
-            set => SetPropertyValue(nameof(Identifcacion), ref identifcacion, value);
+            get => identificacion;
+            set => SetPropertyValue(nameof(Identificacion), ref identificacion, value);
         }
 
         public const string EmailRegularExpression = "^[A-Za-z0-9_\\+-]+(\\.[A-Za-z0-9_\\+-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.([A-Za-z]{2,4})$";
@@ -109,6 +112,38 @@ namespace SistemaSoporte.Module.BusinessObjects
             set => SetPropertyValue(nameof(Observaciones), ref observaciones, value);
         }
 
+
+        public Area Area
+        {
+            get => area;
+            set => SetPropertyValue(nameof(Area), ref area, value);
+        }
+
+        
+        public bool Activo
+        {
+            get => activo;
+            set => SetPropertyValue(nameof(Activo), ref activo, value);
+        }
+
+        //, 
+        [Association, DevExpress.Xpo.Aggregated]
+        public XPCollection<Ticket> ClientesTickets
+        {
+            get
+            {
+                return GetCollection<Ticket>(nameof(ClientesTickets));
+            }
+        }
+
+        [Association, DevExpress.Xpo.Aggregated]
+        public XPCollection<Vehiculos> ClientesVehiculos
+        {
+            get
+            {
+                return GetCollection<Vehiculos>(nameof(ClientesVehiculos));
+            }
+        }
 
     }
 }
